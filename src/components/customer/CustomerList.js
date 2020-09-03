@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react"
 import { CustomerContext } from "./CustomerProvider";
+import { Customer } from "./Customer";
 
 export const CustomerList = () => {
     // This state changes when `getAustomers()` is invoked below
@@ -26,12 +27,7 @@ export const CustomerList = () => {
     return (
         <div className="customers">
             {
-                customers.map(customer => {
-                    return <section key={customer.id} className="customer">
-                        <div><h3>{customer.name}</h3></div>
-                        <div>{customer.address}</div>
-                    </section>    
-                })   
+                customers.map(c => <Customer key={c.id} customer={c} />)    
             }
         </div>
     )
