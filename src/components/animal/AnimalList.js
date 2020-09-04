@@ -28,12 +28,7 @@ export const AnimalList = () => {
                  animals.map(animal => {
                     const owner = customers.find(customer => customer.id === animal.customerId) || {}
                     const location = locations.find(location => location.id === animal.locationId) || {}
-                    return <section key={animal.id} className="animal">
-                        <div><h3>{animal.name}</h3></div>
-                        <div>{animal.breed}</div>
-                        <div>Owner: {owner.name}</div>
-                        <div>Location: {location.name}</div>
-                    </section>
+                    return <Animal key={animal.id} animal={animal} owner={owner} location={location} />
                 })
             }
         </div>

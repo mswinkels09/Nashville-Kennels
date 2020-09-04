@@ -32,10 +32,7 @@ export const EmployeeList = () => {
             {
                 employees.map(employee => {
                     const location = locations.find(location => location.id === employee.locationId) || {}
-                    return <section key={employee.id} className="animal">
-                        <div><h3>{employee.name}</h3></div>
-                        <div>{location.name}</div>
-                    </section>
+                    return <Employee key={employee.id} employee={employee} location={location} />
                 })
             }
         </div>
