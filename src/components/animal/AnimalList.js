@@ -4,7 +4,7 @@ import { Animal } from "./Animal";
 import { CustomerContext } from "../customer/CustomerProvider";
 import { LocationContext } from "../location/LocationProvider";
 
-export const AnimalList = () => {
+export const AnimalList = (props) => {
     // This state changes when `getAnimals()` is invoked below
     const { animals, getAnimals } = useContext(AnimalContext)
     const {customers, getCustomers} = useContext(CustomerContext)
@@ -24,6 +24,10 @@ export const AnimalList = () => {
 
     return (
         <div className="animals">
+            <h1>Animals</h1>
+            <button onClick={() => props.history.push("/animals/create")}>
+                Add Animal
+            </button>
             {
                  animals.map(animal => {
                     const owner = customers.find(customer => customer.id === animal.customerId) || {}

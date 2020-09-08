@@ -4,6 +4,7 @@ import { LocationProvider } from "./location/LocationProvider"
 import { AnimalProvider } from "./animal/AnimalProvider"
 import { LocationList } from "./location/LocationList"
 import { AnimalList } from "./animal/AnimalList"
+import { AnimalForm } from "./animal/AnimalForm";
 import { CustomerProvider } from "./customer/CustomerProvider";
 import { CustomerList } from "./customer/CustomerList";
 import { EmployeeProvider } from "./employee/EmployeeProvider";
@@ -13,6 +14,13 @@ import { EmployeeForm } from "./employee/EmployeeForm";
 export const ApplicationViews = (props) => {
     return (
         <>
+            <Route path="/logout" render={
+                (props) => {
+                    localStorage.removeItem("kennel_customer")
+                    props.history.push("/login")
+                }
+            } />
+
             <LocationProvider>
                 {/* Render the location list when http://localhost:3000/ */}
                 <Route exact path="/">
@@ -23,9 +31,14 @@ export const ApplicationViews = (props) => {
             <AnimalProvider>
                 <CustomerProvider>
                     <LocationProvider>
-                        <Route path="/animals">
-                            <AnimalList />
+                        <Route exact path="/animals" render ={
+                            props => <AnimalList {...props}/>
+                        }>
+                            
                         </Route>
+                        <Route path="/animals/create" render={
+                            props => <AnimalForm {...props}/>
+                        } />
                     </LocationProvider>
                 </CustomerProvider>
                 {/* Render the animal list when http://localhost:3000/animals */}
