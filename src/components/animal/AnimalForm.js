@@ -44,6 +44,7 @@ export const AnimalForm = (props) => {
         } else {
             addAnimal({
                 name: name.current.value,
+                breed: breed.current.value,
                 locationId,
                 customerId
             })
@@ -98,7 +99,7 @@ export const AnimalForm = (props) => {
                     constructNewAnimal()
                 }}
                 className="btn btn-primary">
-                Save Animal
+                Save Appointment
             </button>
         </form>
     )

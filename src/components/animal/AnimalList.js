@@ -26,7 +26,7 @@ export const AnimalList = (props) => {
         <div className="animals">
             <h1>Animals</h1>
             <button onClick={() => props.history.push("/animals/create")}>
-                Add Animal
+                Make Appiontment
             </button>
             {
                  animals.map(animal => {
