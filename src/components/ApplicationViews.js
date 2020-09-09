@@ -7,6 +7,7 @@ import { LocationDetail } from "./location/LocationDetail";
 import { AnimalList } from "./animal/AnimalList"
 import { AnimalForm } from "./animal/AnimalForm";
 import { AnimalDetails } from "./animal/AnimalDetail";
+import { AnimalSearch } from "./animal/AnimalSearch";
 import { CustomerProvider } from "./customer/CustomerProvider";
 import { CustomerList } from "./customer/CustomerList";
 import { EmployeeProvider } from "./employee/EmployeeProvider";
@@ -42,7 +43,10 @@ export const ApplicationViews = (props) => {
                 <CustomerProvider>
                     <LocationProvider>
                         <Route exact path="/animals" render ={
-                            props => <AnimalList {...props}/>
+                            props => <>
+                            <AnimalSearch />
+                            <AnimalList {...props} />
+                            </>
                         }>
                             
                         </Route>
