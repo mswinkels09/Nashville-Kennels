@@ -3,13 +3,16 @@ import { Route } from "react-router-dom"
 import { LocationProvider } from "./location/LocationProvider"
 import { AnimalProvider } from "./animal/AnimalProvider"
 import { LocationList } from "./location/LocationList"
+import { LocationDetail } from "./location/LocationDetail";
 import { AnimalList } from "./animal/AnimalList"
 import { AnimalForm } from "./animal/AnimalForm";
+import { AnimalDetails } from "./animal/AnimalDetail";
 import { CustomerProvider } from "./customer/CustomerProvider";
 import { CustomerList } from "./customer/CustomerList";
 import { EmployeeProvider } from "./employee/EmployeeProvider";
 import { EmployeeList } from "./employee/EmployeeList";
 import { EmployeeForm } from "./employee/EmployeeForm";
+import { EmployeeDetail } from "./employee/EmployeeDetail";
 
 export const ApplicationViews = (props) => {
     return (
@@ -22,10 +25,17 @@ export const ApplicationViews = (props) => {
             } />
 
             <LocationProvider>
+                <AnimalProvider>
+                    <EmployeeProvider>
+                        <Route exact path="/">
+                            <LocationList />
+                        </Route>
+                        <Route path="/locations/:locationId(\d+)" render={
+                            props => <LocationDetail {...props} />
+                        } />
+                    </EmployeeProvider>
+                </AnimalProvider>
                 {/* Render the location list when http://localhost:3000/ */}
-                <Route exact path="/">
-                    <LocationList />
-                </Route>
             </LocationProvider>
 
             <AnimalProvider>
@@ -39,6 +49,9 @@ export const ApplicationViews = (props) => {
                         <Route path="/animals/create" render={
                             props => <AnimalForm {...props}/>
                         } />
+                        <Route path="/animals/:animalId(\d+)" render={
+                            props => <AnimalDetails {...props} />
+                        } />   
                     </LocationProvider>
                 </CustomerProvider>
                 {/* Render the animal list when http://localhost:3000/animals */}
@@ -60,6 +73,9 @@ export const ApplicationViews = (props) => {
                         } />
                         <Route path="/employees/create" render={
                             props => <EmployeeForm {...props}/>
+                        } />
+                        <Route path="/employees/:employeeId(\d+)" render={
+                            props => <EmployeeDetail {...props} />
                         } />
                     </AnimalProvider>
                 </LocationProvider>

@@ -1,40 +1,30 @@
-import React, { useContext, useEffect } from "react"
-import { AnimalContext } from "./AnimalProvider";
-import { Animal } from "./Animal";
-import { CustomerContext } from "../customer/CustomerProvider";
-import { LocationContext } from "../location/LocationProvider";
+import React, { useState, useContext, useEffect } from "react"
+import { AnimalContext } from "./AnimalProvider"
+import Animal from "./Animal"
+import "./Animals.css"
 
-export const AnimalList = (props) => {
-    // This state changes when `getAnimals()` is invoked below
-    const { animals, getAnimals } = useContext(AnimalContext)
-    const {customers, getCustomers} = useContext(CustomerContext)
-    const {locations, getLocations} = useContext(LocationContext)
+export const AnimalList = ({ history }) => {
+    const { getAnimals, animals } = useContext(AnimalContext)
 
-    /*
-        What's the effect this is reponding to? Component was
-        "mounted" to the DOM. React renders blank HTML first,
-        then gets the data, then re-renders.
-    */
-    useEffect(() => {
-        console.log("AnimalList: Initial render before data")
+    // Initialization effect hook -> Go get animal data
+    useEffect(()=>{
         getAnimals()
-        getCustomers()
-        getLocations()
     }, [])
 
     return (
-        <div className="animals">
+        <>
             <h1>Animals</h1>
-            <button onClick={() => props.history.push("/animals/create")}>
-                Make Appiontment
+
+            <button onClick={() => history.push("/animals/create")}>
+                Make Reservation
             </button>
-            {
-                 animals.map(animal => {
-                    const owner = customers.find(customer => customer.id === animal.customerId) || {}
-                    const location = locations.find(location => location.id === animal.locationId) || {}
-                    return <Animal key={animal.id} animal={animal} owner={owner} location={location} />
-                })
-            }
-        </div>
+            <div className="animals">
+                {
+                    animals.map(animal => {
+                        return <Animal key={animal.id} animal={animal} />
+                    })
+                }
+            </div>
+        </>
     )
 }
