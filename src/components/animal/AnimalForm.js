@@ -73,7 +73,7 @@ export const AnimalForm = (props) => {
                     breed: animal.breed,
                     location_id: location_id,
                     status: animal.status,
-                    customerId: parseInt(localStorage.getItem("kennel_customer"))
+                    customer_id: parseInt(localStorage.getItem("kennel_customer"))
                 })
                     .then(() => props.history.push("/animals"))
             }
