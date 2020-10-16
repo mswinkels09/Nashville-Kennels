@@ -1,13 +1,11 @@
 import React, { useContext, useRef, useEffect } from "react"
 import { EmployeeContext } from "./EmployeeProvider"
 import { LocationContext } from "../location/LocationProvider"
-import { AnimalContext } from "../animal/AnimalProvider"
 import "./Employees.css"
 
 export const EmployeeForm = (props) => {
     const { addEmployee } = useContext(EmployeeContext)
     const { locations, getLocations } = useContext(LocationContext)
-    const { animals, getAnimals } = useContext(AnimalContext)
 
     /*
         Create references that can be attached to the input
@@ -18,14 +16,14 @@ export const EmployeeForm = (props) => {
         No more `document.querySelector()` in React.
     */
     const name = useRef(null)
+    const address = useRef(null)
     const location = useRef(null)
-    const animal = useRef(null)
 
     /*
         Get animal state and location state on initialization.
     */
     useEffect(() => {
-       getAnimals().then(getLocations)
+      getLocations()
     }, [])
 
     const constructNewEmployee = () => {
@@ -35,16 +33,15 @@ export const EmployeeForm = (props) => {
             can't just ask for the `.value` property directly,
             but rather `.current.value` now in React.
         */
-        const locationId = parseInt(location.current.value)
-        const animalId = parseInt(animal.current.value)
+        const location_id = parseInt(location.current.value)
 
-        if (locationId === 0) {
+        if (location_id === 0) {
             window.alert("Please select a location")
         } else {
             addEmployee({
                 name: name.current.value,
-                locationId,
-                animalId
+                address: address.current.value,
+                location_id: location_id
             })
             .then(() => props.history.push("/employees"))
         }
@@ -61,23 +58,16 @@ export const EmployeeForm = (props) => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="location">Assign to location: </label>
-                    <select defaultValue="" name="location" ref={location} id="employeeLocation" className="form-control" >
-                        <option value="0">Select a location</option>
-                        {locations.map(e => (
-                            <option key={e.id} value={e.id}>
-                                {e.name}
-                            </option>
-                        ))}
-                    </select>
+                    <label htmlFor="employeeAddress">Employee address: </label>
+                    <input type="text" id="employeeAddresss" ref={address} required autoFocus className="form-control" placeholder="Employee address" />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="location">Caretaker for: </label>
-                    <select defaultValue="" name="animal" ref={animal} id="employeeAnimal" className="form-control" >
-                        <option value="0">Select an animal</option>
-                        {animals.map(e => (
+                    <label htmlFor="location">Assign to location: </label>
+                    <select defaultValue="" name="location" ref={location} id="employeeLocation" className="form-control" >
+                        <option value="0">Select a location</option>
+                        {locations.map(e => (
                             <option key={e.id} value={e.id}>
                                 {e.name}
                             </option>

@@ -124,7 +124,7 @@ export const AnimalForm = (props) => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="status">statuss: </label>
+                    <label htmlFor="status">Status: </label>
                     <textarea type="text" name="status" className="form-control"
                         proptype="varchar"
                         value={animal.status}
